@@ -5,7 +5,6 @@ import com.applicacion.rest.controllers.dto.MakerDTO;
 import com.applicacion.rest.entities.Maker;
 import com.applicacion.rest.service.IMakerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +12,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/maker")
@@ -76,5 +74,14 @@ public class MakerController {
             return ResponseEntity.ok( "Registro Actualizado");
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteMaker(@PathVariable Long id) {
+        if(id != null) {
+            makerService.deleteById(id);
+            return ResponseEntity.ok("Registro eliminado");
+        }
+        return ResponseEntity.badRequest().build();
     }
 }
